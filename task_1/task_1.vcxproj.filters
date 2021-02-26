@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="reverse_bits.cpp">
+    <ClCompile Include="reverse_bits.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

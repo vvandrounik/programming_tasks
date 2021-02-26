@@ -18,7 +18,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="check_island.cpp">
+    <ClCompile Include="check_island.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

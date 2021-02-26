@@ -36,4 +36,4 @@
     free((container_ptr));\
 }
 
-#endif COMMON_H
+#endif //COMMON_H

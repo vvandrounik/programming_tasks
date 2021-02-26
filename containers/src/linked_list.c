@@ -9,23 +9,23 @@ struct linked_list
 };
 
 
-void create(linked_list_t** list)
+void list_create(linked_list_t** list)
 {
     CREATE_LIST_BASED(linked_list_t, list);
 }
 
-void destroy(linked_list_t* list)
+void list_destroy(linked_list_t* list)
 {
     DESTROY_LIST_BASED(list);
 }
 
-void destroy_deep(linked_list_t* list, void (*deleter)(void*))
+void list_destroy_deep(linked_list_t* list, void (*deleter)(void*))
 {
     DESTROY_DEEP_LIST_BASED(list, deleter);
 }
 
 
-node_t* push_back(linked_list_t* list, void* data)
+node_t* list_push_back(linked_list_t* list, void* data)
 {
     node_t* new_node = create_node(data);
 
@@ -45,7 +45,7 @@ node_t* push_back(linked_list_t* list, void* data)
     return new_node;
 }
 
-node_t* insert(linked_list_t* list, size_t pos, void* data)
+node_t* list_insert(linked_list_t* list, size_t pos, void* data)
 {
     node_t* new_node = create_node(data);
 
@@ -75,7 +75,7 @@ node_t* insert(linked_list_t* list, size_t pos, void* data)
 }
 
 
-node_t* get_middle(const linked_list_t* list)
+node_t* list_get_middle(const linked_list_t* list)
 {
     if (!list->head)
         return NULL;
@@ -92,7 +92,7 @@ node_t* get_middle(const linked_list_t* list)
     return slow_ptr;
 }
 
-bool has_loop(const linked_list_t* list)
+bool list_has_loop(const linked_list_t* list)
 {
     if (!list->head)
         return false;

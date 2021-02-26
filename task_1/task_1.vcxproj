@@ -148,7 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="reverse_bits.cpp" />
+    <ClCompile Include="reverse_bits.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="reverse_bits.h" />

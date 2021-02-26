@@ -9,49 +9,49 @@ TEST(HasLoopTest, EmptyList)
 {
     //arrange
     linked_list_t* list = NULL;
-    create(&list);
+    list_create(&list);
 
     //act
-    bool value = has_loop(list);
+    bool value = list_has_loop(list);
 
     //assert
     EXPECT_EQ(false, value);
 
-    destroy(list);
+    list_destroy(list);
 }
 
 TEST(HasLoopTest, LooplessList)
 {
     //arrange
     linked_list_t* list = NULL;
-    create(&list);
+    list_create(&list);
 
     for (int i = 0; i < 4; ++i)
     {
         void* data = malloc(sizeof(int));
         *(int*)data = i;
 
-        push_back(list, data);
+        list_push_back(list, data);
     }
 
     //act
-    bool value = has_loop(list);
+    bool value = list_has_loop(list);
 
     //assert
     EXPECT_EQ(false, value);
 
-    destroy_deep(list, &free);
+    list_destroy_deep(list, &free);
 }
 
 TEST(HasLoopTest, CyclicList)
 {
     //arrange
     linked_list_t* list = NULL;
-    create(&list);
+    list_create(&list);
 
     void* data = malloc(sizeof(int));
     *(int*)data = 0;
-    node_t* head = push_back(list, data);
+    node_t* head = list_push_back(list, data);
 
     node_t* curr = NULL;
     for (int i = 1; i < 4; ++i)
@@ -59,19 +59,19 @@ TEST(HasLoopTest, CyclicList)
         void* data = malloc(sizeof(int));
         *(int*)data = i;
 
-        curr = push_back(list, data);
+        curr = list_push_back(list, data);
     }
 
     curr->next = head;
 
     //act
-    bool value = has_loop(list);
+    bool value = list_has_loop(list);
 
     //assert
     EXPECT_EQ(true, value);
 
     curr->next = NULL;
-    destroy_deep(list, &free);
+    list_destroy_deep(list, &free);
 }
 
 //Task 3
@@ -82,61 +82,61 @@ TEST(GetListMiddleTest, EmptyList)
 {
     //arrange
     linked_list_t* list = NULL;
-    create(&list);
+    list_create(&list);
 
     //act
-    node_t* middle = get_middle(list);
+    node_t* middle = list_get_middle(list);
 
     //assert
     EXPECT_EQ(NULL, middle);
 
-    destroy(list);
+    list_destroy(list);
 }
 
 TEST(GetListMiddleTest, EvenElemsCount)
 {
     //arrange
     linked_list_t* list = NULL;
-    create(&list);
+    list_create(&list);
 
     for (int i = 0; i < 4; ++i)
     {
         void* data = malloc(sizeof(int));
         *(int*)data = i;
         
-        push_back(list, data);
+        list_push_back(list, data);
     }
 
     //act
-    int value = *(int*)get_middle(list)->data;
+    int value = *(int*)list_get_middle(list)->data;
 
     //assert
     EXPECT_EQ(1, value);
 
-    destroy_deep(list, &free);
+    list_destroy_deep(list, &free);
 }
 
 TEST(GetListMiddleTest, OddElemsCount)
 {
     //arrange
     linked_list_t* list = NULL;
-    create(&list);
+    list_create(&list);
 
     for (int i = 0; i < 5; ++i)
     {
         void* data = malloc(sizeof(int));
         *(int*)data = i;
 
-        push_back(list, data);
+        list_push_back(list, data);
     }
 
     //act
-    int value = *(int*)get_middle(list)->data;
+    int value = *(int*)list_get_middle(list)->data;
 
     //assert
     EXPECT_EQ(2, value);
 
-    destroy_deep(list, &free);
+    list_destroy_deep(list, &free);
 }
 
 //Task 4

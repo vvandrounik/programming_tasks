@@ -32,29 +32,29 @@ static bool is_pair(char open, char close)
 bool is_valid(const char* str)
 {
 	stack_t* stack = NULL;
-	create(&stack);
+	stack_create(&stack);
 
 	while (*str != '\0')
 	{
 		if (is_open_brace(*str))
 		{
-			push(stack, (void*)str);
+			stack_push(stack, (void*)str);
 		}
 		else if (is_close_brace(*str))
 		{
-			if (top(stack) == NULL || !is_pair(*(char*)top(stack), *str))
+			if (stack_top(stack) == NULL || !is_pair(*(char*)stack_top(stack), *str))
 			{
 				return false;
 			}
 			else
 			{
-				pop(stack);
+				stack_pop(stack);
 			}
 		}
 		++str;
 	}
 
-	destroy(stack);
+	stack_destroy(stack);
 
 	return true;
 }

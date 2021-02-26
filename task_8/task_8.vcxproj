@@ -151,7 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="calc_volume.cpp" />
+    <ClCompile Include="calc_volume.c" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
