@@ -31,9 +31,8 @@ static bool is_pair(char open, char close)
 
 bool is_valid(const char* str)
 {
-	stack_t* stack = NULL;
-	stack_create(&stack);
-
+	stack_t* stack = stack_create();
+	
 	while (*str != '\0')
 	{
 		if (is_open_brace(*str))
@@ -42,7 +41,8 @@ bool is_valid(const char* str)
 		}
 		else if (is_close_brace(*str))
 		{
-			if (stack_top(stack) == NULL || !is_pair(*(char*)stack_top(stack), *str))
+			node_t* top = stack_top(stack);
+			if (top == NULL || !is_pair(*(char*)(top->data), *str))
 			{
 				return false;
 			}

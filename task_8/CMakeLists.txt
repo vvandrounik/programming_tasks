@@ -1,10 +1,10 @@
 cmake_minimum_required (VERSION 3.8)
 
-project(task_1)
+project(task_8)
 
 find_package(GTest REQUIRED)
 
-add_executable (task_1
+add_executable (task_8
     main.cpp
     calc_volume.c
 )

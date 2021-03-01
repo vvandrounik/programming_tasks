@@ -12,13 +12,13 @@ extern "C" {
 typedef int(*cmp_func_t)(void*, void*);
 typedef struct priority_queue priority_queue_t;
 
-void pqueue_create(priority_queue_t** queue, cmp_func_t cmp_func);
+priority_queue_t* pqueue_create(cmp_func_t cmp_func);
 void pqueue_destroy(priority_queue_t* queue);
 void pqueue_destroy_deep(priority_queue_t* queue, void (*deleter)(void*));
 
 node_t* pqueue_push(priority_queue_t* queue, void* data);
 void pqueue_pop(priority_queue_t* queue);
-void* pqueue_top(priority_queue_t* stack);
+node_t* pqueue_top(priority_queue_t* stack);
 
 #ifdef __cplusplus
 }

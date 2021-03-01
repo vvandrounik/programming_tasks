@@ -30,8 +30,7 @@ int calc_volume(int* mat, size_t rows, size_t cols)
 {
 	bool* visited = (bool*)calloc(rows * cols, sizeof(bool));
 
-	priority_queue_t* queue = NULL;
-	create(&queue, cmp);
+	priority_queue_t* queue = pqueue_create(cmp);
 
 	for (size_t i = 0; i < rows; ++i)
 	{
@@ -40,14 +39,14 @@ int calc_volume(int* mat, size_t rows, size_t cols)
 		cell->height = mat[i * cols];
 		cell->i = i;
 		cell->j = 0;
-		push(queue, cell);
+		pqueue_push(queue, cell);
 
 		visited[i * cols + (cols - 1)] = true;
 		cell = (cell_t*)malloc(sizeof(cell_t));
 		cell->height = mat[i * cols + (cols - 1)];
 		cell->i = i;
 		cell->j = cols - 1;
-		push(queue, cell);
+		pqueue_push(queue, cell);
 	}
 
 	for (size_t j = 0; j < cols; ++j)
@@ -59,22 +58,22 @@ int calc_volume(int* mat, size_t rows, size_t cols)
 		cell->height = mat[j];
 		cell->i = 0;
 		cell->j = j;
-		push(queue, cell);
+		pqueue_push(queue, cell);
 
 		cell = (cell_t*)malloc(sizeof(cell_t));
 		cell->height = mat[(rows - 1) * cols + j];
 		cell->i = rows - 1;
 		cell->j = j;
-		push(queue, cell);
+		pqueue_push(queue, cell);
 	}
 
 	int volume = 0;
 	size_t dirs_size = sizeof(hv_dirs) / sizeof(hv_dirs[0]);
 
-	while (top(queue) != NULL)
+	while (pqueue_top(queue) != NULL)
 	{
-		cell_t* cell = (cell_t*)top(queue);
-		pop(queue);
+		cell_t* cell = (cell_t*)(pqueue_top(queue)->data);
+		pqueue_pop(queue);
 
 		for (size_t k = 0; k < dirs_size; ++k)
 		{
@@ -94,7 +93,7 @@ int calc_volume(int* mat, size_t rows, size_t cols)
 					ncell->height = __max(mat[ni * cols + nj], cell->height);
 				}
 
-				push(queue, ncell);
+				pqueue_push(queue, ncell);
 				visited[ni * cols + nj] = true;
 			}
 		}
@@ -102,6 +101,6 @@ int calc_volume(int* mat, size_t rows, size_t cols)
 		free(cell);
 	}
 
-	destroy(queue);
+	pqueue_destroy(queue);
 	return volume;
 }

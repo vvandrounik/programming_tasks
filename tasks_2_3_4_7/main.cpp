@@ -8,8 +8,7 @@
 TEST(HasLoopTest, EmptyList)
 {
     //arrange
-    linked_list_t* list = NULL;
-    list_create(&list);
+    linked_list_t* list = list_create();
 
     //act
     bool value = list_has_loop(list);
@@ -23,8 +22,7 @@ TEST(HasLoopTest, EmptyList)
 TEST(HasLoopTest, LooplessList)
 {
     //arrange
-    linked_list_t* list = NULL;
-    list_create(&list);
+    linked_list_t* list = list_create();
 
     for (int i = 0; i < 4; ++i)
     {
@@ -46,8 +44,7 @@ TEST(HasLoopTest, LooplessList)
 TEST(HasLoopTest, CyclicList)
 {
     //arrange
-    linked_list_t* list = NULL;
-    list_create(&list);
+    linked_list_t* list = list_create();
 
     void* data = malloc(sizeof(int));
     *(int*)data = 0;
@@ -81,8 +78,7 @@ TEST(HasLoopTest, CyclicList)
 TEST(GetListMiddleTest, EmptyList)
 {
     //arrange
-    linked_list_t* list = NULL;
-    list_create(&list);
+    linked_list_t* list = list_create();
 
     //act
     node_t* middle = list_get_middle(list);
@@ -96,8 +92,7 @@ TEST(GetListMiddleTest, EmptyList)
 TEST(GetListMiddleTest, EvenElemsCount)
 {
     //arrange
-    linked_list_t* list = NULL;
-    list_create(&list);
+    linked_list_t* list = list_create();
 
     for (int i = 0; i < 4; ++i)
     {
@@ -119,8 +114,7 @@ TEST(GetListMiddleTest, EvenElemsCount)
 TEST(GetListMiddleTest, OddElemsCount)
 {
     //arrange
-    linked_list_t* list = NULL;
-    list_create(&list);
+    linked_list_t* list = list_create();
 
     for (int i = 0; i < 5; ++i)
     {

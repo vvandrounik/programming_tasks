@@ -1,58 +1,57 @@
 #include "stack.h"
-#include "common.h"
+#include "linked_list.h"
 
 struct stack
 {
-    node_t* head;
+    linked_list_t* underlying_list;
 };
 
 
-void stack_create(stack_t** stack)
+stack_t* stack_create()
 {
-    CREATE_LIST_BASED(stack_t, stack);
+    stack_t* stack = (stack_t*)malloc(sizeof(stack_t));
+
+    if (!stack)
+    {
+        return NULL;
+    }
+
+    linked_list_t* underlying_list = list_create();
+
+    if (!underlying_list)
+    {
+        free(stack);
+        return NULL;
+    }
+
+    stack->underlying_list = underlying_list;
+    return stack;
 }
 
 void stack_destroy(stack_t* stack)
 {
-    DESTROY_LIST_BASED(stack);
+    list_destroy(stack->underlying_list);
+    free(stack);
 }
 
 void stack_destroy_deep(stack_t* stack, void (*deleter)(void*))
 {
-    DESTROY_DEEP_LIST_BASED(stack, deleter);
+    list_destroy_deep(stack->underlying_list, deleter);
+    free(stack);
 }
 
 
 node_t* stack_push(stack_t* stack, void* data)
 {
-    node_t* new_node = create_node(data);
-
-    if (stack->head == NULL)
-    {
-        stack->head = new_node;
-        return new_node;
-    }
-
-    new_node->next = stack->head;
-    stack->head = new_node;
-
-    return new_node;
+    return list_push_front(stack->underlying_list, data);
 }
 
 void stack_pop(stack_t* stack)
 {
-    if (stack->head == NULL)
-    {
-        return;
-    }
-
-    node_t* tmp = stack->head;
-    stack->head = tmp->next;
-    free(tmp);
+    list_pop(stack->underlying_list);
 }
 
-void* stack_top(stack_t* stack)
+node_t* stack_top(stack_t* stack)
 {
-    return stack->head == NULL
-        ? NULL : stack->head->data;
+    return list_front(stack->underlying_list);
 }

@@ -9,13 +9,13 @@ extern "C" {
 
 typedef struct stack stack_t;
 
-void stack_create(stack_t** stack);
+stack_t* stack_create();
 void stack_destroy(stack_t* stack);
-void stack_(stack_t* stack, void (*deleter)(void*));
+void stack_destroy_deep(stack_t* stack, void (*deleter)(void*));
 
 node_t* stack_push(stack_t* stack, void* data);
 void stack_pop(stack_t* stack);
-void* stack_top(stack_t* stack);
+node_t* stack_top(stack_t* stack);
 
 #ifdef __cplusplus
 }

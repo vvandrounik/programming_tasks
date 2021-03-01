@@ -9,25 +9,83 @@ struct linked_list
 };
 
 
-void list_create(linked_list_t** list)
+linked_list_t* list_create()
 {
-    CREATE_LIST_BASED(linked_list_t, list);
+    linked_list_t* list = (linked_list_t*)malloc(sizeof(linked_list_t));   
+
+    if (list)
+    {
+        list->head = NULL;
+    }
+
+    return list;
 }
 
 void list_destroy(linked_list_t* list)
 {
-    DESTROY_LIST_BASED(list);
+    node_t* curr = list->head;
+    node_t* next = NULL;
+
+    list->head = NULL;
+
+    while (curr != NULL)
+    {
+        next = curr->next;
+        free(curr);
+        curr = next;
+    }
+
+    free(list);
 }
 
 void list_destroy_deep(linked_list_t* list, void (*deleter)(void*))
 {
-    DESTROY_DEEP_LIST_BASED(list, deleter);
+    node_t* curr = list->head;
+    node_t* next = NULL;
+
+    list->head = NULL;
+
+    while (curr != NULL)
+    {
+        next = curr->next;
+        (*deleter)(curr->data);
+        free(curr);
+        curr = next;
+    }
+
+    free(list);
 }
 
+
+node_t* list_push_front(linked_list_t* list, void* data)
+{
+    node_t* new_node = create_node(data);
+
+    if (!new_node)
+    {
+        return NULL;
+    }
+
+    if (list->head == NULL)
+    {
+        list->head = new_node;
+        return new_node;
+    }
+
+    new_node->next = list->head;
+    list->head = new_node;
+
+    return new_node;
+}
 
 node_t* list_push_back(linked_list_t* list, void* data)
 {
     node_t* new_node = create_node(data);
+
+    if (!new_node)
+    {
+        return NULL;
+    }
 
     if (list->head == NULL)
     {
@@ -45,9 +103,14 @@ node_t* list_push_back(linked_list_t* list, void* data)
     return new_node;
 }
 
-node_t* list_insert(linked_list_t* list, size_t pos, void* data)
+node_t* list_insert_at(linked_list_t* list, size_t pos, void* data)
 {
     node_t* new_node = create_node(data);
+
+    if (!new_node)
+    {
+        return NULL;
+    }
 
     if (list->head == NULL)
     {
@@ -72,6 +135,38 @@ node_t* list_insert(linked_list_t* list, size_t pos, void* data)
     curr->next = new_node;
 
     return new_node;
+}
+
+node_t* list_insert_after(linked_list_t* list, node_t* node, void* data)
+{
+    node_t* new_node = create_node(data);
+
+    if (!new_node)
+    {
+        return NULL;
+    }
+
+    new_node->next = node->next;
+    node->next = new_node;
+
+    return new_node;
+}
+
+void list_pop(linked_list_t* list)
+{
+    if (list->head == NULL)
+    {
+        return;
+    }
+
+    node_t* tmp = list->head;
+    list->head = tmp->next;
+    free(tmp);
+}
+
+node_t* list_front(linked_list_t* list)
+{
+    return list->head;
 }
 
 
