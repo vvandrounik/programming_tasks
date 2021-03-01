@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-int reverse_bits(int num);
+unsigned int reverse_bits(unsigned int num);
 
 #ifdef __cplusplus
 }

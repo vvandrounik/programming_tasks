@@ -11,7 +11,7 @@ TEST(ReverseBitsTest, ValueOne)
     int number = 1;
 
     //act
-    int value = reverse_bits(number);
+    int value = (int)reverse_bits(number);
 
     //assert
     int expected = 0;

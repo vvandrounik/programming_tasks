@@ -2,10 +2,10 @@
 
 #include "reverse_bits.h"
 
-int reverse_bits(int num)
+unsigned int reverse_bits(unsigned int num)
 {
-    int count = sizeof(int) * CHAR_BIT - 1;
-    int reverse_num = num;
+    unsigned int count = sizeof(int) * CHAR_BIT - 1;
+    unsigned int reverse_num = num;
 
     num >>= 1;
     while (num)
